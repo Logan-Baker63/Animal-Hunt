@@ -1,0 +1,51 @@
+Cart Transport Scrip (Pseudocode) - 
+
+onCollision()
+	if tag = Player
+		inRange = true
+
+ExitCollision()
+	if tag = Player
+		inRange = false
+
+ControlCart()
+	make the player a parent of the cart
+	set position behind the player
+	isParented = true
+	playerSpeed = 8
+
+ExitCartControl()
+	unparent the cart from the player
+	isParented = false
+	playerSpeed = 12
+	
+	
+Start()
+	isParented = false
+	
+
+
+Update()
+	
+	
+	
+	if isParented is false
+		if inRange = true
+		
+			if right click pressed
+				ControlCart()
+				hide message saying "right click to control"
+			else
+				display message saying "right click to control"
+
+		else
+			hide message saying "right click to control"
+		
+		
+			
+
+	else
+		hide message saying "right click to control"
+		
+		if control is clicked
+			ExitCartControl()

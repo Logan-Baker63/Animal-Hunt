@@ -12,6 +12,7 @@ TagManager:
   - Spawner
   - Cart
   - LeftClick
+  - MiddleClick
   layers:
   - Default
   - TransparentFX

@@ -8,6 +8,8 @@ public class DieWhenShot : MonoBehaviour
     public GameObject bullet;
     public GameObject DeadRabbit;
 
+
+
     Vector3 newPosition = new Vector3(0, 2f, 0);
 
     Animator anim;
@@ -24,6 +26,7 @@ public class DieWhenShot : MonoBehaviour
             anim.SetInteger("AnimIndex", 2);
             Instantiate(DeadRabbit, transform.position + newPosition, transform.rotation);
             Destroy(gameObject);
+
 
 
 

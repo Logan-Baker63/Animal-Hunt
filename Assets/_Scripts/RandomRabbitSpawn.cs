@@ -34,9 +34,9 @@ public class RandomRabbitSpawn : MonoBehaviour
     {
         float spawned = 0;
         
-        while (spawned < numToSpawn)
+        while (spawned < numToSpawn) //runs for every animal told to spawn
         {
-            if ((int)Random.Range(1, 5) != 4)
+            if ((int)Random.Range(1, 5) != 4) //randomly selects rabbit or deer
             {
                 selectedPrefab = rabbitPrefab;
             }
@@ -44,10 +44,13 @@ public class RandomRabbitSpawn : MonoBehaviour
             {
                 //selectedPrefab = deerPrefab;
                 Debug.Log("Spawned Deer");
+                selectedPrefab = rabbitPrefab;
             }
 
+            //randomises spawn location
             selectedWaypoint = waypoints[(int)Random.Range(0, 9)];
 
+            //spawns the animal
             Instantiate(selectedPrefab, selectedWaypoint.position, selectedWaypoint.rotation);
             spawned++;
         }

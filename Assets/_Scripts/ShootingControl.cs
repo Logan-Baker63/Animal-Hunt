@@ -11,24 +11,39 @@ public class ShootingControl : MonoBehaviour
 
     public Transform SpawnPoint;
 
+    GameObject transportCart;
+
+    public GameObject gun;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        transportCart = GameObject.FindGameObjectWithTag("Cart").gameObject;
+        gun.SetActive(true);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (canShoot == true)
+        
+        
+        if (transportCart.GetComponent<TransportCart>().isParented)
         {
-            if (Input.GetMouseButtonDown(0))
+            gun.SetActive(false);
+        }
+        else
+        {
+            gun.SetActive(true);
+            
+            if (canShoot == true)
             {
-                //Spawns bullets when clicking the shoot button
-                Instantiate(Bullet, SpawnPoint.position, SpawnPoint.rotation);
+                if (Input.GetMouseButtonDown(0))
+                {
+                    //Spawns bullets when clicking the shoot button
+                    Instantiate(Bullet, SpawnPoint.position, SpawnPoint.rotation);
+                }
             }
         }
-        
-        
+
     }
 }
