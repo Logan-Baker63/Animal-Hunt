@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -42,7 +43,7 @@ public class GameManager : MonoBehaviour
             Gun.transform.localEulerAngles = new Vector3(originalGunRotation, 180f, 0);
         }
 
-        moneyDisplay.GetComponent<Text>().text = ("$" + playerMoney.ToString());
+        moneyDisplay.GetComponent<TextMeshProUGUI>().text = ("$" + playerMoney.ToString());
 
     }
 

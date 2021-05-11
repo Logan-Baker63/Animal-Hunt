@@ -5,9 +5,10 @@ using UnityEngine;
 public class RandomRabbitSpawn : MonoBehaviour
 {
     public GameObject rabbitPrefab;
-    //public Transform deerPrefab;
+    public GameObject deerPrefab;
 
     public int numToSpawn;
+    public int timeTillNextSpawn = 90;
     
 
     public List<Transform> waypoints = new List<Transform>();
@@ -23,6 +24,19 @@ public class RandomRabbitSpawn : MonoBehaviour
     void Start()
     {
         Spawn();
+        InvokeRepeating("Tick", timeTillNextSpawn, timeTillNextSpawn);
+    }
+
+    void Tick()
+    {
+        numToSpawn = 1;
+        Spawn();
+        TickContinue()
+;    }
+
+    void TickContinue()
+    {
+        InvokeRepeating("Tick", timeTillNextSpawn, timeTillNextSpawn);
     }
 
     private void Update()
@@ -42,9 +56,7 @@ public class RandomRabbitSpawn : MonoBehaviour
             }
             else
             {
-                //selectedPrefab = deerPrefab;
-                Debug.Log("Spawned Deer");
-                selectedPrefab = rabbitPrefab;
+                selectedPrefab = deerPrefab;
             }
 
             //randomises spawn location

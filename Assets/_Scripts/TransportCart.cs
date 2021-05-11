@@ -7,6 +7,7 @@ public class TransportCart : MonoBehaviour
 
     public GameObject player;
     GameObject middleClickToControl;
+    GameObject ctrlToExit;
     public bool inRange;
 
     public bool isParented = false;
@@ -48,7 +49,10 @@ public class TransportCart : MonoBehaviour
     void Start()
     {
         middleClickToControl = GameObject.FindGameObjectWithTag("MiddleClick");
-    }
+        ctrlToExit = GameObject.FindGameObjectWithTag("ctrlToExit");
+        ctrlToExit.SetActive(false);
+
+        ;    }
 
     // Update is called once per frame
     void Update()
@@ -67,6 +71,7 @@ public class TransportCart : MonoBehaviour
                 {
                     ControlCart();
                     middleClickToControl.SetActive(false);
+                    ctrlToExit.SetActive(true);
                 }
                 else
                 {
@@ -90,6 +95,7 @@ public class TransportCart : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.LeftControl))
             {
                 ExitCartControl();
+                ctrlToExit.SetActive(false);
             }
 
         }

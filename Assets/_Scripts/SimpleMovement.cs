@@ -6,7 +6,8 @@ public class SimpleMovement : MonoBehaviour
 {
     CharacterController controller;
 
-    public float playerSpeed = 12f;
+    public float playerSpeed;
+    public float originalPlayerSpeed;
     private float jumpHeight = 1.0f;
     private float gravityValue = -9.81f;
     private Vector3 playerVelocity;
@@ -20,6 +21,10 @@ public class SimpleMovement : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        originalPlayerSpeed = playerSpeed;
+
+        //locks cursor/hides it
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
 
@@ -32,18 +37,15 @@ public class SimpleMovement : MonoBehaviour
         //user directional inputs
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical"); 
-        
-        //locks cursor/hides it
-        Cursor.lockState = CursorLockMode.Locked;
 
         //sprinting on left shift
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            playerSpeed = 15f;
+            playerSpeed = originalPlayerSpeed * 1.25f;
         }
         else
         {
-            playerSpeed = 12f;
+            playerSpeed = originalPlayerSpeed;
         }
 
         //creates a local direction from the x and z inputs

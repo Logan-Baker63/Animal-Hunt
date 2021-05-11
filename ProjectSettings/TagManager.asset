@@ -13,6 +13,7 @@ TagManager:
   - Cart
   - LeftClick
   - MiddleClick
+  - ctrlToExit
   layers:
   - Default
   - TransparentFX
