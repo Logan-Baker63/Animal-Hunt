@@ -13,6 +13,8 @@ public class SimpleMovement : MonoBehaviour
     private Vector3 playerVelocity;
     public bool groundedPlayer;
 
+    public bool canMove = true;
+
     public Vector3 lastPosition;
     public bool isMoving;
 
@@ -27,7 +29,7 @@ public class SimpleMovement : MonoBehaviour
         originalPlayerSpeed = playerSpeed;
 
         //locks cursor/hides it
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.None;
 
         lastPosition = transform.position;
         isMoving = false;
@@ -58,21 +60,31 @@ public class SimpleMovement : MonoBehaviour
         }
         else
         {
-            playerSpeed = originalPlayerSpeed;
+            if (canMove)
+            {
+                playerSpeed = originalPlayerSpeed;
+            }
+            else
+            {
+                playerSpeed = 0f;
+            }
+            
+
         }
+        if (canMove)
+        {
+            //creates a local direction from the x and z inputs
+            Vector3 MovementDirection = transform.right * x + transform.forward * z;
 
-        //creates a local direction from the x and z inputs
-        Vector3 MovementDirection = transform.right * x + transform.forward * z;
+            //move the character forwards and backwards using 'w' and 's'
+            controller.Move(Vector3.Scale(MovementDirection * playerSpeed * Time.deltaTime, new Vector3(1, 0, 1)));
 
-        //move the character forwards and backwards using 'w' and 's'
-        controller.Move(Vector3.Scale(MovementDirection * playerSpeed * Time.deltaTime, new Vector3(1, 0, 1)));
+            //turn the character left and right from using 'a' and 'd'
+            transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0));
 
-        //turn the character left and right from using 'a' and 'd'
-        transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0));
-
-        //move the camera up and down as the player moves their mouse up and downn on the y axis
-        MainCameraTransform.Rotate(new Vector3(-Input.GetAxis("Mouse Y"), 0, 0));
-
+            //move the camera up and down as the player moves their mouse up and downn on the y axis
+            MainCameraTransform.Rotate(new Vector3(-Input.GetAxis("Mouse Y"), 0, 0));
+        }
         
         if (groundedPlayer && playerVelocity.y < 0)
         {
@@ -83,7 +95,11 @@ public class SimpleMovement : MonoBehaviour
         // Changes the height position of the player..
         if (Input.GetButtonDown("Jump") && groundedPlayer)
         {
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+            if (canMove)
+            {
+                playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+            }
+            
         }
 
         playerVelocity.y += gravityValue * Time.deltaTime;

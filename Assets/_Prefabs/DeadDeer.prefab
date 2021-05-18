@@ -244,8 +244,8 @@ MonoBehaviour:
   handcartInRange: 0
   inCart: 0
   targetScale: 0.3
+  targetScaleDeer: 0.6
   shrinkSpeed: 2000
-  amountOfRabbitsInCart: 0
   leftClickPrompt: {fileID: 0}
   player: {fileID: 0}
   originalScale: {x: 0, y: 0, z: 0}

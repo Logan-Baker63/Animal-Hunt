@@ -11,6 +11,7 @@ public class EnterShop : MonoBehaviour
     public GameObject ShopMenu;
     public RandomRabbitSpawn RandomRabbitSpawn;
     public SimpleMovement SimpleMovement;
+    public ShootingControl ShootingControl;
     public GameManager GameManager;
 
     public AudioSource cashRegister;
@@ -32,6 +33,9 @@ public class EnterShop : MonoBehaviour
     void EnterTheShop()
     {
         doorbell.Play();
+
+        ShootingControl.canShoot = false;
+        SimpleMovement.canMove = false;
 
         //resets UI accordingly
         Scope.SetActive(false);
@@ -80,6 +84,9 @@ public class EnterShop : MonoBehaviour
 
     public void ExitTheShop()
     {
+        SimpleMovement.canMove = true;
+        ShootingControl.canShoot = true;
+
         doorbell.Play();
         ShopMenu.SetActive(false);
 

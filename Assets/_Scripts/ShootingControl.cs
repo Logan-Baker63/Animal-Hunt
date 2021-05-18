@@ -7,7 +7,7 @@ public class ShootingControl : MonoBehaviour
 
     public GameObject Bullet;
 
-    public bool canShoot = true;
+    public bool canShoot = false;
 
     public Transform SpawnPoint;
 
@@ -22,6 +22,7 @@ public class ShootingControl : MonoBehaviour
     {
         transportCart = GameObject.FindGameObjectWithTag("Cart").gameObject;
         gun.SetActive(true);
+        canShoot = false;
     }
 
     // Update is called once per frame
