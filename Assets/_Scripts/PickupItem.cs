@@ -13,10 +13,8 @@ public class PickupItem : MonoBehaviour
     public bool inCart = false;
 
     public float targetScale = 0.3f;
+    public float targetScaleDeer = 0.6f;
     public float shrinkSpeed = 2000f;
-
-    public float amountOfRabbitsInCart = 0;
-
     public GameObject leftClickPrompt;
 
     public GameObject player;
@@ -24,6 +22,8 @@ public class PickupItem : MonoBehaviour
     public Vector3 originalScale;
 
     GameObject transportCart;
+
+    Transform AnimalSocket1;
 
     private void Start()
     {
@@ -36,6 +36,8 @@ public class PickupItem : MonoBehaviour
         originalScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
 
         transportCart = GameObject.FindGameObjectWithTag("Cart").gameObject;
+
+        AnimalSocket1 = GameObject.Find("Animal Socket 1").transform;
 
     }
 
@@ -81,7 +83,7 @@ public class PickupItem : MonoBehaviour
         }
         else
         {
-            if ((gameObject.tag == "DeadRabbit" || gameObject.tag == "DeadDeer") && inRange == true)
+            if (inRange == true)
             {
                 if (Input.GetKeyDown(KeyCode.E))
                 {
@@ -108,6 +110,9 @@ public class PickupItem : MonoBehaviour
             //storing carcasses in cart
             if (isPickedUp && handcartInRange)
             {
+
+                AnimalSocket1 = GameObject.Find("Animal Socket 1").transform;
+
                 //display message appear when in range
                 leftClickPrompt.GetComponent<TextMesh>().text = "Left Click while holding carcass to store for transport";
 
@@ -120,35 +125,20 @@ public class PickupItem : MonoBehaviour
                     GetComponent<Rigidbody>().useGravity = false;
                     GetComponent<Rigidbody>().isKinematic = true;
 
-                    //shrinks the rabbit when in the cart to make it look neater
-                    gameObject.transform.localScale = Vector3.Lerp(gameObject.transform.localScale, new Vector3(targetScale, targetScale, targetScale), Time.deltaTime * shrinkSpeed);
+                    if (tag == "DeadRabbit" || tag == "DeadFox")
+                    {
+                        //shrinks the rabbit when in the cart to make it look neater
+                        gameObject.transform.localScale = Vector3.Lerp(gameObject.transform.localScale, new Vector3(targetScale, targetScale, targetScale), Time.deltaTime * shrinkSpeed);
+                    }
+                    else if (tag == "DeadDeer")
+                    {
+                        gameObject.transform.localScale = Vector3.Lerp(gameObject.transform.localScale, new Vector3(targetScaleDeer, targetScaleDeer, targetScaleDeer), Time.deltaTime * shrinkSpeed);
+                    }
+                    
+                    
 
-                    //places rabbits in slightly different positions in cart
-                    if (amountOfRabbitsInCart == 0)
-                    {
-                        gameObject.transform.position = new Vector3(-0.987f, 2.466f, -56.692f);
-                        amountOfRabbitsInCart++;
-                    }
-                    else if (amountOfRabbitsInCart == 1)
-                    {
-                        gameObject.transform.position = new Vector3(-0.987f, 2.466f, -56.692f);
-                        amountOfRabbitsInCart++;
-                    }
-                    else if (amountOfRabbitsInCart == 2)
-                    {
-                        gameObject.transform.position = new Vector3(-0.987f, 2.466f, -56.692f);
-                        amountOfRabbitsInCart++;
-                    }
-                    else if (amountOfRabbitsInCart == 3)
-                    {
-                        gameObject.transform.position = new Vector3(-0.987f, 2.466f, -56.692f);
-                        amountOfRabbitsInCart++;
-                    }
-                    else if (amountOfRabbitsInCart == 4)
-                    {
-                        gameObject.transform.position = new Vector3(-0.987f, 2.466f, -56.692f);
-                        amountOfRabbitsInCart = 0; //sets position back to original for infinite animal stacking in cart
-                    }
+                    gameObject.transform.position = AnimalSocket1.position;
+                    
 
                     leftClickPrompt.GetComponent<TextMesh>().text = ""; //removes display message after putting animal in cart
 
@@ -162,9 +152,9 @@ public class PickupItem : MonoBehaviour
                 leftClickPrompt.GetComponent<TextMesh>().text = ""; //removes display message
             }
 
-            if ((gameObject.tag == "DeadRabbit" || gameObject.tag == "DeadDeer") && transform.position.y < 0)
+            if (transform.position.y < 0)
             {
-                gameObject.transform.Translate(new Vector3(0, 10, 0)); //TEMPERARY - bug makes animal fall through floor when killed, this sets its position in the sky so it falls on land
+                gameObject.transform.Translate(new Vector3(0, 5, 0)); //TEMPERARY - bug makes animal fall through floor when killed, this sets its position in the sky so it falls on land
             }
 
             if (Input.GetKeyUp(KeyCode.E)) //drops held animals when left click is released

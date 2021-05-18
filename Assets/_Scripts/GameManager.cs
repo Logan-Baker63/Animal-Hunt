@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     public Vector3 originalGunPosition;
     public float originalGunRotation;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {

@@ -13,9 +13,12 @@ public class SimpleMovement : MonoBehaviour
     private Vector3 playerVelocity;
     public bool groundedPlayer;
 
+    public Vector3 lastPosition;
+    public bool isMoving;
+
     public Transform MainCameraTransform;
 
-   
+    public AudioSource footsteps;
 
     // Start is called before the first frame update
     void Start()
@@ -25,12 +28,22 @@ public class SimpleMovement : MonoBehaviour
 
         //locks cursor/hides it
         Cursor.lockState = CursorLockMode.Locked;
+
+        lastPosition = transform.position;
+        isMoving = false;
     }
 
 
     // Update is called once per frame
     void Update()
     {
+
+        if (transform.position != lastPosition)
+            isMoving = true;
+        else
+            isMoving = false;
+
+        lastPosition = transform.position;
 
         groundedPlayer = controller.isGrounded;
 
@@ -76,6 +89,10 @@ public class SimpleMovement : MonoBehaviour
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
 
+        if (!isMoving)
+        {
+            footsteps.Play();
+        }
 
     }
 }

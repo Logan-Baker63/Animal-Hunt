@@ -7,7 +7,7 @@ public class DieWhenShotNoAnimation : MonoBehaviour
     public GameObject bullet;
     public GameObject DeadRabbit;
 
-
+    public RandomRabbitSpawn randomRabbitSpawn;
 
     Vector3 newPosition = new Vector3(0, 2f, 0);
 
@@ -26,7 +26,7 @@ public class DieWhenShotNoAnimation : MonoBehaviour
             Instantiate(DeadRabbit, transform.position + newPosition, transform.rotation);
             Destroy(gameObject);
 
-
+            randomRabbitSpawn.spawnedAnimals -= 1;
 
 
         }
@@ -34,6 +34,7 @@ public class DieWhenShotNoAnimation : MonoBehaviour
 
     private void Start()
     {
+        randomRabbitSpawn = GameObject.Find("Rabbit Spawner").GetComponent<RandomRabbitSpawn>(); 
         bullet.SetActive(true);
         //anim = GetComponent<Animator>();
     }

@@ -1017,8 +1017,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   walkPoint: {x: 0, y: 0, z: 0}
-  walkPointRange: 15
-  sightRange: 10
+  walkPointRange: 30
+  sightRange: 20
   playerInSightRange: 0
 --- !u!1 &3800895250033800040
 GameObject:

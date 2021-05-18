@@ -14,6 +14,8 @@ public class SellAnimal : MonoBehaviour
 
     public bool canSell = false;
 
+    public AudioSource m_audioSource;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "DeadRabbit")
@@ -26,6 +28,11 @@ public class SellAnimal : MonoBehaviour
             moneyWorth += 250f;
             animalsBeingSold.Add(other.gameObject);
 
+        }
+        else if (other.tag == "DeadFox")
+        {
+            moneyWorth += 550f;
+            animalsBeingSold.Add(other.gameObject);
         }
 
         if (other.tag == "Player")
@@ -46,6 +53,11 @@ public class SellAnimal : MonoBehaviour
         {
             moneyWorth -= 250f;
             animalsBeingSold.Remove(other.gameObject);
+        }
+        else if (other.tag == "DeadFox")
+        {
+            moneyWorth -= 550f;
+            animalsBeingSold.Add(other.gameObject);
         }
 
 
@@ -79,6 +91,7 @@ public class SellAnimal : MonoBehaviour
             if (canSell == true)
             {
 
+                m_audioSource.Play();
                 canSell = false;
                 gameManager.GetComponent<GameManager>().playerMoney += moneyWorth;
 

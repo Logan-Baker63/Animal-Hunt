@@ -15,6 +15,8 @@ public class ShootingControl : MonoBehaviour
 
     public GameObject gun;
 
+    public AudioSource gunshot;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,16 +31,17 @@ public class ShootingControl : MonoBehaviour
         
         if (transportCart.GetComponent<TransportCart>().isParented)
         {
-            gun.SetActive(false);
+            gun.SetActive(false); //removes gun visibility
         }
         else
         {
-            gun.SetActive(true);
-            
+            gun.SetActive(true); //adds gun visibility
+
             if (canShoot == true)
             {
                 if (Input.GetMouseButtonDown(0))
                 {
+                    gunshot.Play();
                     //Spawns bullets when clicking the shoot button
                     Instantiate(Bullet, SpawnPoint.position, SpawnPoint.rotation);
                 }

@@ -13,6 +13,9 @@ public class EnterShop : MonoBehaviour
     public SimpleMovement SimpleMovement;
     public GameManager GameManager;
 
+    public AudioSource cashRegister;
+    public AudioSource doorbell;
+
     private void Start()
     {
         ShopMenu.SetActive(false);
@@ -28,6 +31,8 @@ public class EnterShop : MonoBehaviour
 
     void EnterTheShop()
     {
+        doorbell.Play();
+
         //resets UI accordingly
         Scope.SetActive(false);
         ShopMenu.SetActive(true);
@@ -43,6 +48,7 @@ public class EnterShop : MonoBehaviour
 
         if (GameManager.GetComponent<GameManager>().playerMoney >= 100f)
         {
+            cashRegister.Play();
             SimpleMovement.originalPlayerSpeed += 0.5f;
             GameManager.GetComponent<GameManager>().playerMoney -= 100f;
         }
@@ -62,6 +68,7 @@ public class EnterShop : MonoBehaviour
             }
             else
             {
+                cashRegister.Play();
                 RandomRabbitSpawn.timeTillNextSpawn -= 2;
                 GameManager.GetComponent<GameManager>().playerMoney -= 1000f;
             }
@@ -73,6 +80,7 @@ public class EnterShop : MonoBehaviour
 
     public void ExitTheShop()
     {
+        doorbell.Play();
         ShopMenu.SetActive(false);
 
         //locks the cursor
