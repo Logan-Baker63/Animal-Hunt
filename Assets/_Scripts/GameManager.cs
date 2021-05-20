@@ -31,7 +31,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Scope.SetActive(false);
-        moneyDisplay.SetActive(true);
+        moneyDisplay.SetActive(false);
+        SimpleMovement.canMove = false;
 
         originalGunPosition = Gun.transform.localPosition; //sets original gun positions so its possible to transfer back to later on
         originalGunRotation = Gun.transform.localEulerAngles.x;

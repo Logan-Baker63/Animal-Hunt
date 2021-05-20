@@ -10,6 +10,8 @@ public class SellAnimal : MonoBehaviour
     public GameObject buttonPressPrompt;
     public GameObject gameManager;
 
+    public bool ezMoney = false;
+
     public List<GameObject> animalsBeingSold = new List<GameObject>();
 
     public bool canSell = false;
@@ -25,7 +27,16 @@ public class SellAnimal : MonoBehaviour
         }
         else if (other.tag == "DeadDeer")
         {
-            moneyWorth += 250f;
+            if (ezMoney)
+            {
+                moneyWorth += 999999f;
+            }
+            else
+            {
+                moneyWorth += 250f;
+            }
+                
+            
             animalsBeingSold.Add(other.gameObject);
 
         }

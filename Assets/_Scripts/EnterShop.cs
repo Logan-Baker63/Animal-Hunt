@@ -9,6 +9,7 @@ public class EnterShop : MonoBehaviour
     public GameObject Scope;
     public GameObject MoneyDisplay;
     public GameObject ShopMenu;
+    public GameObject BackgroundShopMenu;
     public RandomRabbitSpawn RandomRabbitSpawn;
     public SimpleMovement SimpleMovement;
     public ShootingControl ShootingControl;
@@ -20,6 +21,7 @@ public class EnterShop : MonoBehaviour
     private void Start()
     {
         ShopMenu.SetActive(false);
+        BackgroundShopMenu.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -39,6 +41,7 @@ public class EnterShop : MonoBehaviour
 
         //resets UI accordingly
         Scope.SetActive(false);
+        BackgroundShopMenu.SetActive(true);
         ShopMenu.SetActive(true);
         MoneyDisplay.SetActive(true);
 
@@ -88,6 +91,7 @@ public class EnterShop : MonoBehaviour
         ShootingControl.canShoot = true;
 
         doorbell.Play();
+        BackgroundShopMenu.SetActive(false);
         ShopMenu.SetActive(false);
 
         //locks the cursor

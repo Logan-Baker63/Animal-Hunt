@@ -9,7 +9,7 @@ public class SimpleMovement : MonoBehaviour
     public float playerSpeed;
     public float originalPlayerSpeed;
     private float jumpHeight = 1.0f;
-    private float gravityValue = -9.81f;
+    public float gravityValue = -9.81f;
     private Vector3 playerVelocity;
     public bool groundedPlayer;
 
@@ -56,7 +56,14 @@ public class SimpleMovement : MonoBehaviour
         //sprinting on left shift
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            playerSpeed = originalPlayerSpeed * 1.25f;
+            if (canMove)
+            {
+                playerSpeed = originalPlayerSpeed * 1.25f;
+            }
+            else
+            {
+                playerSpeed = 0f;
+            }
         }
         else
         {
@@ -105,7 +112,7 @@ public class SimpleMovement : MonoBehaviour
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
 
-        if (!isMoving)
+        if (!isMoving /*&& groundedPlayer*/)
         {
             footsteps.Play();
         }
