@@ -10,6 +10,12 @@ public class SellAnimal : MonoBehaviour
     public GameObject buttonPressPrompt;
     public GameObject gameManager;
 
+    public float rabbitWorth = 100f;
+    public float deerWorth = 250f;
+    public float foxWorth = 550f;
+
+    public ShootingControl ShootingControl;
+
     public bool ezMoney = false;
 
     public List<GameObject> animalsBeingSold = new List<GameObject>();
@@ -22,7 +28,7 @@ public class SellAnimal : MonoBehaviour
     {
         if (other.tag == "DeadRabbit")
         {
-            moneyWorth += 100f;
+            moneyWorth += rabbitWorth;
             animalsBeingSold.Add(other.gameObject);
         }
         else if (other.tag == "DeadDeer")
@@ -33,7 +39,7 @@ public class SellAnimal : MonoBehaviour
             }
             else
             {
-                moneyWorth += 250f;
+                moneyWorth += deerWorth;
             }
                 
             
@@ -42,7 +48,7 @@ public class SellAnimal : MonoBehaviour
         }
         else if (other.tag == "DeadFox")
         {
-            moneyWorth += 550f;
+            moneyWorth += foxWorth;
             animalsBeingSold.Add(other.gameObject);
         }
 
@@ -57,17 +63,17 @@ public class SellAnimal : MonoBehaviour
     {
         if (other.tag == "DeadRabbit")
         {
-            moneyWorth -= 100f;
+            moneyWorth -= rabbitWorth;
             animalsBeingSold.Remove(other.gameObject);
         }
         else if (other.tag == "DeadDeer")
         {
-            moneyWorth -= 250f;
+            moneyWorth -= deerWorth;
             animalsBeingSold.Remove(other.gameObject);
         }
         else if (other.tag == "DeadFox")
         {
-            moneyWorth -= 550f;
+            moneyWorth -= foxWorth;
             animalsBeingSold.Add(other.gameObject);
         }
 
@@ -101,6 +107,8 @@ public class SellAnimal : MonoBehaviour
         {
             if (canSell == true)
             {
+
+                ShootingControl.canShoot = true;
 
                 m_audioSource.Play();
                 canSell = false;

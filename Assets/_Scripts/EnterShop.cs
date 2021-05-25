@@ -15,8 +15,34 @@ public class EnterShop : MonoBehaviour
     public ShootingControl ShootingControl;
     public GameManager GameManager;
 
+    public GameObject buyTenMovementSpeedButton;
+    public float buyTenMovementSpeedPrice;
+
+    public GameObject movementSpeedButton;
+    public float movementSpeedSellPrice;
+
+    public GameObject buyTenIncreaseRabbitSellPriceButton;
+    public float buyTenRabbitSellPriceIncrease;
+
+    public GameObject increaseRabbitSellPriceButton;
+    public float buyRabbitSellPriceIncrease;
+
+    public GameObject buyTenIncreaseDeerSellPriceButton;
+    public float buyTenDeerSellPriceIncrease;
+
+    public GameObject increaseDeerSellPriceButton;
+    public float buyDeerSellPriceIncrease;
+
+    public GameObject buyTenIncreaseFoxSellPriceButton;
+    public float buyTenFoxSellPriceIncrease;
+
+    public GameObject increaseFoxSellPriceButton;
+    public float buyFoxSellPriceIncrease;
+
     public AudioSource cashRegister;
     public AudioSource doorbell;
+
+    public SellAnimal SellAnimal;
 
     private void Start()
     {
@@ -50,38 +76,139 @@ public class EnterShop : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        buyTenMovementSpeedButton.GetComponent<TextMeshProUGUI>().text = "Buy 10 - $" + buyTenMovementSpeedPrice;
+        buyTenIncreaseRabbitSellPriceButton.GetComponent<TextMeshProUGUI>().text = "Buy 10 - $" + buyTenRabbitSellPriceIncrease;
+        buyTenIncreaseDeerSellPriceButton.GetComponent<TextMeshProUGUI>().text = "Buy 10 - $" + buyTenDeerSellPriceIncrease;
+        buyTenIncreaseFoxSellPriceButton.GetComponent<TextMeshProUGUI>().text = "Buy 10 - $" + buyTenFoxSellPriceIncrease;
+    }
+
+    public void BuyTenIncreaseMovementSpeed()
+    {
+        if (GameManager.GetComponent<GameManager>().playerMoney >= buyTenMovementSpeedPrice)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                IncreaseMovementSpeed();
+
+            }
+        }
+        
+    }
+
     public void IncreaseMovementSpeed()
     {
 
-        if (GameManager.GetComponent<GameManager>().playerMoney >= 100f)
+        Debug.Log("Yo");
+
+        if (GameManager.GetComponent<GameManager>().playerMoney >= movementSpeedSellPrice)
         {
+            Debug.Log("-Amount bought-");
             cashRegister.Play();
             SimpleMovement.originalPlayerSpeed += 0.5f;
-            GameManager.GetComponent<GameManager>().playerMoney -= 100f;
+            GameManager.GetComponent<GameManager>().playerMoney -= movementSpeedSellPrice;
+            movementSpeedSellPrice *= 1.05f;
+            movementSpeedSellPrice = Mathf.Round(movementSpeedSellPrice);
+            movementSpeedButton.GetComponent<TextMeshProUGUI>().text = "Increase Movement Speed - $" + movementSpeedSellPrice;
+
+            buyTenMovementSpeedPrice = buyTenMovementSpeedPrice * 1.05f;
+            buyTenMovementSpeedPrice = Mathf.Round(buyTenMovementSpeedPrice);
         }
         
         
     }
 
-    public void IncreaseSpawnRate()
+    public void BuyTenIncreaseRabbitSellPrice()
     {
-        if (GameManager.GetComponent<GameManager>().playerMoney >= 1000f)
+        if (GameManager.GetComponent<GameManager>().playerMoney >= buyTenRabbitSellPriceIncrease)
         {
-            
-            if (RandomRabbitSpawn.timeTillNextSpawn <= 2)
+            for (int i = 0; i < 10; i++)
             {
-                RandomRabbitSpawn.timeTillNextSpawn = 2;
-                Debug.Log("Limit reached");
-            }
-            else
-            {
-                cashRegister.Play();
-                RandomRabbitSpawn.timeTillNextSpawn -= 2;
-                GameManager.GetComponent<GameManager>().playerMoney -= 1000f;
-            }
+                IncreaseRabbitSellPrice();
 
-            
-            
+            }
+        }
+
+    }
+
+    public void IncreaseRabbitSellPrice()
+    {
+        if (GameManager.GetComponent<GameManager>().playerMoney >= buyRabbitSellPriceIncrease)
+        {
+
+            cashRegister.Play();
+            GameManager.GetComponent<GameManager>().playerMoney -= buyRabbitSellPriceIncrease;
+            SellAnimal.rabbitWorth *= 1.2f;
+            SellAnimal.rabbitWorth = Mathf.Round(SellAnimal.rabbitWorth);
+            buyRabbitSellPriceIncrease *= 1.2f;
+            buyRabbitSellPriceIncrease = Mathf.Round(buyRabbitSellPriceIncrease);
+            increaseRabbitSellPriceButton.GetComponent<TextMeshProUGUI>().text = "Increase Rabbit Sell Price - $" + buyRabbitSellPriceIncrease;
+
+            buyTenRabbitSellPriceIncrease = buyTenRabbitSellPriceIncrease * 1.2f;
+            buyTenRabbitSellPriceIncrease = Mathf.Round(buyTenRabbitSellPriceIncrease);
+        }
+    }
+
+    public void BuyTenIncreaseDeerSellPrice()
+    {
+        if (GameManager.GetComponent<GameManager>().playerMoney >= buyTenDeerSellPriceIncrease)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                IncreaseDeerSellPrice();
+
+            }
+        }
+
+    }
+
+    public void IncreaseDeerSellPrice()
+    {
+        if (GameManager.GetComponent<GameManager>().playerMoney >= buyDeerSellPriceIncrease)
+        {
+
+            cashRegister.Play();
+            GameManager.GetComponent<GameManager>().playerMoney -= buyDeerSellPriceIncrease;
+            SellAnimal.deerWorth *= 1.2f;
+            SellAnimal.deerWorth = Mathf.Round(SellAnimal.deerWorth);
+            buyDeerSellPriceIncrease *= 1.2f;
+            buyDeerSellPriceIncrease = Mathf.Round(buyDeerSellPriceIncrease);
+            increaseDeerSellPriceButton.GetComponent<TextMeshProUGUI>().text = "Increase Deer Sell Price - $" + buyDeerSellPriceIncrease;
+
+            buyTenDeerSellPriceIncrease = buyTenDeerSellPriceIncrease * 1.2f;
+            buyTenDeerSellPriceIncrease = Mathf.Round(buyTenDeerSellPriceIncrease);
+        }
+    }
+
+    public void BuyTenIncreaseFoxSellPrice()
+    {
+        if (GameManager.GetComponent<GameManager>().playerMoney >= buyTenFoxSellPriceIncrease)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                IncreaseFoxSellPrice();
+
+            }
+        }
+
+    }
+
+    public void IncreaseFoxSellPrice()
+    {
+        if (GameManager.GetComponent<GameManager>().playerMoney >= buyFoxSellPriceIncrease)
+        {
+
+            cashRegister.Play();
+            GameManager.GetComponent<GameManager>().playerMoney -= buyFoxSellPriceIncrease;
+            SellAnimal.foxWorth *= 1.2f;
+            SellAnimal.foxWorth = Mathf.Round(SellAnimal.foxWorth);
+            buyFoxSellPriceIncrease *= 1.2f;
+            buyFoxSellPriceIncrease = Mathf.Round(buyFoxSellPriceIncrease);
+            increaseFoxSellPriceButton.GetComponent<TextMeshProUGUI>().text = "Increase Fox Sell Price - $" + buyFoxSellPriceIncrease;
+
+            buyTenFoxSellPriceIncrease = buyTenFoxSellPriceIncrease * 1.2f;
+            buyTenFoxSellPriceIncrease = Mathf.Round(buyTenFoxSellPriceIncrease);
         }
     }
 

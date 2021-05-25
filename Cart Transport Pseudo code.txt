@@ -1,4 +1,4 @@
-Cart Transport Scrip (Pseudocode) - 
+Cart Transport Script (Pseudocode) - 
 
 onCollision()
 	if tag = Player
