@@ -13,7 +13,7 @@ public class DestroyAfterSeconds : MonoBehaviour
         StartCoroutine(DestroyAfterXSeconds());
     }
 
-    IEnumerator DestroyAfterXSeconds()
+    IEnumerator DestroyAfterXSeconds() //destroys bullet 3 seconds after being shot
     {
         yield return new WaitForSeconds(TimeInSeconds);
         Destroy(gameObject);

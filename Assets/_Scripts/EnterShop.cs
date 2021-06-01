@@ -44,6 +44,9 @@ public class EnterShop : MonoBehaviour
 
     public SellAnimal SellAnimal;
 
+    public FlameThrower Flamethrower;
+    public GameObject buyFlamethrowerButton;
+
     private void Start()
     {
         ShopMenu.SetActive(false);
@@ -52,7 +55,7 @@ public class EnterShop : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player") //enter shop if player walks into doorway
         {
             EnterTheShop();
         }
@@ -60,7 +63,7 @@ public class EnterShop : MonoBehaviour
 
     void EnterTheShop()
     {
-        doorbell.Play();
+        doorbell.Play(); //set UI to shop menu and play doorbell noise
 
         ShootingControl.canShoot = false;
         SimpleMovement.canMove = false;
@@ -78,14 +81,28 @@ public class EnterShop : MonoBehaviour
 
     private void Update()
     {
+        //sets text of button prices so they are always accurate
         buyTenMovementSpeedButton.GetComponent<TextMeshProUGUI>().text = "Buy 10 - $" + buyTenMovementSpeedPrice;
         buyTenIncreaseRabbitSellPriceButton.GetComponent<TextMeshProUGUI>().text = "Buy 10 - $" + buyTenRabbitSellPriceIncrease;
         buyTenIncreaseDeerSellPriceButton.GetComponent<TextMeshProUGUI>().text = "Buy 10 - $" + buyTenDeerSellPriceIncrease;
         buyTenIncreaseFoxSellPriceButton.GetComponent<TextMeshProUGUI>().text = "Buy 10 - $" + buyTenFoxSellPriceIncrease;
     }
 
+    public void BuyFlamethrower()
+    {
+        if (GameManager.GetComponent<GameManager>().playerMoney >= 5000)
+        {
+            cashRegister.Play();
+            GameManager.GetComponent<GameManager>().playerMoney -= 5000;
+            Flamethrower.canFlamethrower = true;
+            buyFlamethrowerButton.SetActive(false);
+
+        }
+    }
+
     public void BuyTenIncreaseMovementSpeed()
     {
+        //increases player movement speed if they have the money and click the button 10 times
         if (GameManager.GetComponent<GameManager>().playerMoney >= buyTenMovementSpeedPrice)
         {
             for (int i = 0; i < 10; i++)
@@ -101,13 +118,16 @@ public class EnterShop : MonoBehaviour
     {
 
         Debug.Log("Yo");
-
+        
+        //increases player movement speed if they have the money and click the button
         if (GameManager.GetComponent<GameManager>().playerMoney >= movementSpeedSellPrice)
         {
             Debug.Log("-Amount bought-");
             cashRegister.Play();
             SimpleMovement.originalPlayerSpeed += 0.5f;
             GameManager.GetComponent<GameManager>().playerMoney -= movementSpeedSellPrice;
+
+            //increases price every time it is bought
             movementSpeedSellPrice *= 1.05f;
             movementSpeedSellPrice = Mathf.Round(movementSpeedSellPrice);
             movementSpeedButton.GetComponent<TextMeshProUGUI>().text = "Increase Movement Speed - $" + movementSpeedSellPrice;
@@ -121,6 +141,7 @@ public class EnterShop : MonoBehaviour
 
     public void BuyTenIncreaseRabbitSellPrice()
     {
+        //increases rabbit sell price whenn button is clicked and player has enough money 10 times
         if (GameManager.GetComponent<GameManager>().playerMoney >= buyTenRabbitSellPriceIncrease)
         {
             for (int i = 0; i < 10; i++)
@@ -134,6 +155,7 @@ public class EnterShop : MonoBehaviour
 
     public void IncreaseRabbitSellPrice()
     {
+        //increases rabbit sell price whenn button is clicked and player has enough money
         if (GameManager.GetComponent<GameManager>().playerMoney >= buyRabbitSellPriceIncrease)
         {
 
@@ -152,6 +174,7 @@ public class EnterShop : MonoBehaviour
 
     public void BuyTenIncreaseDeerSellPrice()
     {
+        //Increases deer sell price whenn button is clicked and player has enough money 10 times
         if (GameManager.GetComponent<GameManager>().playerMoney >= buyTenDeerSellPriceIncrease)
         {
             for (int i = 0; i < 10; i++)
@@ -165,6 +188,7 @@ public class EnterShop : MonoBehaviour
 
     public void IncreaseDeerSellPrice()
     {
+        //Increases deer sell price whenn button is clicked and player has enough money
         if (GameManager.GetComponent<GameManager>().playerMoney >= buyDeerSellPriceIncrease)
         {
 
@@ -183,6 +207,7 @@ public class EnterShop : MonoBehaviour
 
     public void BuyTenIncreaseFoxSellPrice()
     {
+        //Increases fox sell price whenn button is clicked and player has enough money 10 times
         if (GameManager.GetComponent<GameManager>().playerMoney >= buyTenFoxSellPriceIncrease)
         {
             for (int i = 0; i < 10; i++)
@@ -196,6 +221,7 @@ public class EnterShop : MonoBehaviour
 
     public void IncreaseFoxSellPrice()
     {
+        //Increases fox sell price whenn button is clicked and player has enough money
         if (GameManager.GetComponent<GameManager>().playerMoney >= buyFoxSellPriceIncrease)
         {
 
@@ -214,6 +240,7 @@ public class EnterShop : MonoBehaviour
 
     public void ExitTheShop()
     {
+        //hides shop UI and re-enters game
         SimpleMovement.canMove = true;
         ShootingControl.canShoot = true;
 

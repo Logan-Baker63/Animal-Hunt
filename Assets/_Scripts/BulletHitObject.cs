@@ -19,7 +19,7 @@ public class BulletHitObject : MonoBehaviour
     public void OnTriggerEnter(Collider other)
     {
         
-        if (other.tag == "Structure")
+        if (other.tag == "Structure") //destroy bullet when collided
         {
             Destroy(gameObject);
         }

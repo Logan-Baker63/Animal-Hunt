@@ -19,7 +19,7 @@ public class DieWhenShot : MonoBehaviour
     {
 
 
-        if (other.tag == "Bullet")
+        if (other.tag == "Bullet") //destroys animal and replaces it with it's respective dead animal prefab
         {
             Destroy(other);
             isDead = true;
@@ -31,6 +31,17 @@ public class DieWhenShot : MonoBehaviour
 
 
         }
+
+        if (other.tag == "FlamethrowerParticles")
+        {
+            isDead = true;
+            anim.SetInteger("AnimIndex", 2);
+            Instantiate(DeadRabbit, transform.position + newPosition, transform.rotation);
+            Destroy(gameObject);
+
+            randomRabbitSpawn.spawnedAnimals -= 1;
+        }
+
     }
 
     private void Start()

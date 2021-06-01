@@ -12,20 +12,21 @@ public class CameraZoom : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1)) //zooms camera on right click (when scoped)
         {
             isZoomed = true;
         }
 
-        if (isZoomed)
+        if (isZoomed) //zooms camera on right click (when scoped)
         {
             GetComponent<Camera>().fieldOfView = Mathf.Lerp(GetComponent<Camera>().fieldOfView, zoom, Time.deltaTime * smooth);
         }
-        else
+        else //returns camera zoom to normal
         {
             GetComponent<Camera>().fieldOfView = Mathf.Lerp(GetComponent<Camera>().fieldOfView, normal, Time.deltaTime * smooth);
         }
 
+        //returns camera zoom to normal
         if (Input.GetMouseButtonUp(1))
         {
             isZoomed = false;

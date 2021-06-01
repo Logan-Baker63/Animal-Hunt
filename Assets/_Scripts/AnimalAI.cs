@@ -23,14 +23,14 @@ public class AnimalAI : MonoBehaviour
     public float sightRange;
     public bool playerInSightRange;
 
-    private void Awake()
+    private void Awake() //sets variables
     {
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         DieWhenShot = GetComponent<DieWhenShot>();
     }
 
-    private void Undisturbed()
+    private void Undisturbed() //animal AI set to walk to random points
     {
         if (!walkPointSet)
         {
@@ -74,7 +74,7 @@ public class AnimalAI : MonoBehaviour
 
     }*/
 
-    private void SearchWalkPoint()
+    private void SearchWalkPoint() //finds random poinnt on nav mesh within range
     {
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
@@ -87,7 +87,7 @@ public class AnimalAI : MonoBehaviour
         }
     }
 
-    private void Flee()
+    private void Flee() //animal runs from player when in range for 3 seconds
     {
         StartCoroutine(FleeForSeconds(3));
     }
@@ -114,7 +114,7 @@ public class AnimalAI : MonoBehaviour
 
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected() //makes animal sight range and walk range etc visible
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange); //player detection range

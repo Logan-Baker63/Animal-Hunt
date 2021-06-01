@@ -26,14 +26,14 @@ public class AnimationHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position != lastPosition)
+        if (transform.position != lastPosition) //check if animal is moving
             isMoving = true;
         else
             isMoving = false;
 
-        lastPosition = transform.position;
+        lastPosition = transform.position; 
 
-        if (DieWhenShot.isDead == false)
+        if (DieWhenShot.isDead == false) //if animal is dead and not moving set it to dead animation
         {
             if (isMoving == true)
             {

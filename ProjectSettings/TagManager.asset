@@ -15,6 +15,7 @@ TagManager:
   - MiddleClick
   - ctrlToExit
   - DeadFox
+  - FlamethrowerParticles
   layers:
   - Default
   - TransparentFX
